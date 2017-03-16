@@ -57,6 +57,10 @@ public:
     }
 
     retType addValue(valType val) {
+
+        if (size == MaxVals)
+            throw int(-1);
+
         size++;
         if (size == 1) {
             curMedian = pivot = val;
