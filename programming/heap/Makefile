@@ -1,18 +1,19 @@
-all: heap_test median_calc
+OBJDIR := bin
+OPTIONS := -Wall -std=c++11
 
-.PHONY: bindir
-bindir:
-	if [ ! -d bin ]; then \
-		mkdir bin; \
-	fi
+all: $(OBJDIR)/heap_test $(OBJDIR)/median_calc
 
-median_calc: main.cpp running_median.h bindir
-	g++ -Wall -std=c++11 -o bin/$@ $<
 
-heap_test: main_heap.cpp bindir
-	g++ -Wall -DTESTHEAP -std=c++11 -o bin/$@ $<
+$(OBJDIR)/median_calc: main.cpp heap.h running_median.h | $(OBJDIR)
+	$(CXX) $(OPTIONS) -o $@ $<
+
+$(OBJDIR)/heap_test: main_heap.cpp heap.h | $(OBJDIR)
+	$(CXX) $(OPTIONS) -DTESTHEAP -o $@ $<
+
+$(OBJDIR):
+	mkdir $(OBJDIR)
 
 .PHONY: clean
 clean:
-	rm -f *.o bin/*
+	rm -f *.o $(OBJDIR)/*
 
