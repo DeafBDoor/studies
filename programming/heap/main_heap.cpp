@@ -3,6 +3,7 @@
 #include "heap.h"
 
 using namespace std;
+using namespace heap;
 
 int main() {
     Heap<unsigned, 100> myheap;
